@@ -27,6 +27,10 @@ add_library(
     effects/Chorus.cpp
     effects/Bitcrusher.cpp
     effects/Flanger.cpp
+    effects/Reverb.cpp
+    effects/Phaser.cpp
+    effects/Glitch.cpp
+    effects/RingMod.cpp
 )
 
 # Link libraries

@@ -5,7 +5,10 @@
 #include "effects/Bitcrusher.h"
 #include "effects/Chorus.h"
 #include "effects/Filter.h"
-#include "effects/Flanger.h"
+#include "effects/Glitch.h"
+#include "effects/Phaser.h"
+#include "effects/Reverb.h"
+#include "effects/RingMod.h"
 #include <atomic>
 #include <memory>
 #include <mutex>
@@ -51,8 +54,10 @@ private:
   // Effects
   std::unique_ptr<Filter> filter_;
   std::unique_ptr<Chorus> chorus_;
+  std::unique_ptr<Reverb> reverb_;
+  std::unique_ptr<Phaser> phaser_;
   std::unique_ptr<Bitcrusher> bitcrusher_;
-  std::unique_ptr<Flanger> flanger_;
+  std::unique_ptr<RingMod> ringMod_;
 
   // Test tone phase
   float phase_ = 0.0f;

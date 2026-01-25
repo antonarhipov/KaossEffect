@@ -14,8 +14,10 @@ AudioEngine::~AudioEngine() { stopStream(); }
 AudioEngine::AudioEngine() {
   filter_ = std::make_unique<Filter>(kSampleRate);
   chorus_ = std::make_unique<Chorus>(kSampleRate);
+  reverb_ = std::make_unique<Reverb>(kSampleRate);
+  phaser_ = std::make_unique<Phaser>(kSampleRate);
   bitcrusher_ = std::make_unique<Bitcrusher>(kSampleRate);
-  flanger_ = std::make_unique<Flanger>(kSampleRate);
+  ringMod_ = std::make_unique<RingMod>(kSampleRate);
 }
 
 // Lifecycle methods
@@ -177,13 +179,19 @@ AudioEngine::onAudioReady(oboe::AudioStream *audioStream, void *audioData,
   } else if (mode == 1 && chorus_) { // Chorus
     chorus_->setParameters(x, y);
     chorus_->process(outputData, samplesRead / kChannelCount, kChannelCount);
-  } else if (mode == 2 && bitcrusher_) { // Bitcrusher
+  } else if (mode == 2 && reverb_) { // Reverb
+    reverb_->setParameters(x, y);
+    reverb_->process(outputData, samplesRead / kChannelCount, kChannelCount);
+  } else if (mode == 3 && phaser_) { // Phaser
+    phaser_->setParameters(x, y);
+    phaser_->process(outputData, samplesRead / kChannelCount, kChannelCount);
+  } else if (mode == 4 && bitcrusher_) { // Bitcrusher
     bitcrusher_->setParameters(x, y);
     bitcrusher_->process(outputData, samplesRead / kChannelCount,
                          kChannelCount);
-  } else if (mode == 3 && flanger_) { // Flanger
-    flanger_->setParameters(x, y);
-    flanger_->process(outputData, samplesRead / kChannelCount, kChannelCount);
+  } else if (mode == 5 && ringMod_) { // RingMod
+    ringMod_->setParameters(x, y);
+    ringMod_->process(outputData, samplesRead / kChannelCount, kChannelCount);
   } else {
     // Passthrough
   }

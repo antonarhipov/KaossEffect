@@ -28,15 +28,17 @@ fun EffectModeSelector(
     currentMode: Int,
     onModeSelected: (Int) -> Unit
 ) {
-    val modes = listOf("FILTER", "CHORUS", "CRUSH", "FLANGE")
+    val modes = listOf("FILTER", "CHORUS", "REVERB", "PHASER", "CRUSH", "RINGMOD")
     
     // Theme colors matching XYPad
     val modeColors =
         listOf(
             FilterOrange,
             DelayCyan,
-            BitcrushLime,
-            FlangerPurple
+            Color(0xFF9C27B0), // Reverb Purple
+            Color(0xFFFFEB3B), // Phaser Yellow
+            BitcrushLime,      // Crush Lime
+            Color(0xFF607D8B)  // RingMod BlueGrey
         )
 
     Row(

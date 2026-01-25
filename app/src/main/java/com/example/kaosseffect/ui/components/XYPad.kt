@@ -69,29 +69,34 @@ fun XYPad(
     val effectInfo = remember(effectMode, currentX, currentY) {
         when (effectMode) {
             0 -> { // Filter
-                // 20Hz - 20kHz exp
                 val freq = 20.0 * Math.pow(1000.0, currentX.toDouble())
                 val res = currentY * 0.95
                 EffectInfo("Cutoff", "Resonance", "%.0f Hz".format(freq), "%.2f".format(res))
             }
-            1 -> { // Delay
-                // 10ms - 500ms
-                val time = 10.0 + (490.0 * currentX)
-                val fb = currentY * 0.9
-                EffectInfo("Time", "Feedback", "%.0f ms".format(time), "%.2f".format(fb))
-            }
-            2 -> { // Bitcrusher
-                // 16 -> 2 bits
-                val bits = 16.0 - (currentX * 14.0)
-                // 1 -> 32 div
-                val rate = 1.0 + (currentY * 31.0)
-                EffectInfo("Bit Depth", "Rate Div", "%.1f bits".format(bits), "1/%.0f".format(rate))
-            }
-            3 -> { // Flanger
-                // 0.05 - 5Hz
-                val rate = 0.05 * Math.pow(100.0, currentX.toDouble())
+            1 -> { // Chorus (was Delay)
+                val rate = 0.5 + (currentX * 4.5) // 0.5 - 5Hz
                 val depth = currentY
-                EffectInfo("LFO Rate", "Depth", "%.2f Hz".format(rate), "%.2f".format(depth))
+                EffectInfo("Rate", "Depth", "%.1f Hz".format(rate), "%.2f".format(depth))
+            }
+            2 -> { // Reverb
+                val size = currentX
+                val mix = currentY
+                EffectInfo("Decay", "Mix", "%.2f".format(size), "%.2f".format(mix))
+            }
+            3 -> { // Phaser
+                val rate = 0.1 + (currentX * 4.9) // 0.1 - 5Hz
+                val feedback = currentY
+                EffectInfo("Rate", "Fdbk", "%.1f Hz".format(rate), "%.2f".format(feedback))
+            }
+            4 -> { // Bitcrusher
+                val bits = 16.0 - (currentX * 14.0)
+                val rate = 1.0 + (currentY * 31.0)
+                EffectInfo("Bits", "Div", "%.1f".format(bits), "1/%.0f".format(rate))
+            }
+            5 -> { // RingMod
+                val freq = 50.0 * Math.pow(80.0, currentX.toDouble())
+                val mix = currentY
+                EffectInfo("Freq", "Mix", "%.0f Hz".format(freq), "%.2f".format(mix))
             }
             else -> EffectInfo("X", "Y", "%.2f".format(currentX), "%.2f".format(currentY))
         }
@@ -102,8 +107,10 @@ fun XYPad(
         when (effectMode) {
             0 -> FilterOrange
             1 -> DelayCyan
-            2 -> BitcrushLime
-            3 -> FlangerPurple
+            2 -> Color(0xFF9C27B0) // Reverb Purple
+            3 -> Color(0xFFFFEB3B) // Phaser Yellow
+            4 -> BitcrushLime      // Crush Lime
+            5 -> Color(0xFF607D8B) // RingMod BlueGrey
             else -> Color.White
         }
     }
