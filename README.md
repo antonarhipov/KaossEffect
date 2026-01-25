@@ -2,6 +2,13 @@
 
 **KaossEffect** is a high-performance Android audio application that enables real-time effects processing on MP3 tracks. Inspired by the Korg Kaoss Pad, it features an intuitive **XY Pad interface** that allows users to manipulate two effect parameters simultaneously using touch gestures.
 
+## Screenshots
+*Main interface with XY pad and effect controls*
+
+![](images/kaosseffect1.png)
+
+![](images/kaosseffect2.png)
+
 ## Features
 
 ### 🎛 Real-time Audio Effects
